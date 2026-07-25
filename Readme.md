@@ -1,6 +1,6 @@
-# Проект «{{projectTitle}}»
+# Проект «Большое путешествие»
 
-* Студент: [{{userName}}]({{userProfile}}).
+* Студент: [Вадим Тюрюмин](https://htmlacademy.ru/profile/owlrik).
 * Наставник: `Неизвестно`.
 
 ---
