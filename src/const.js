@@ -1,0 +1,3 @@
+const TRIP_EVENTS_COUNT = 3;
+
+export { TRIP_EVENTS_COUNT };
