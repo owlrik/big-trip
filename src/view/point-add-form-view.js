@@ -1,13 +1,13 @@
-import { createTripEventTypeListTemplate } from './trip-event-type-list-template.js';
-import { createTripEventDestinationTemplate } from './trip-event-destination-template.js';
-import { createTripEventTimeTemplate } from './trip-event-time-template.js';
-import { createTripEventPriceTemplate } from './trip-event-price-template.js';
-import { createTripEventEditOffersTemplate } from './trip-event-edit-offers-template.js';
-import { createTripEventEditInfoTemplate } from './trip-event-edit-info-template.js';
+import { createPointTypeListTemplate } from './point-type-list-template.js';
+import { createPointDestinationTemplate } from './point-destination-template.js';
+import { createPointTimeTemplate } from './point-time-template.js';
+import { createPointPriceTemplate } from './point-price-template.js';
+import { createPointEditOffersTemplate } from './point-edit-offers-template.js';
+import { createPointEditInfoTemplate } from './point-edit-info-template.js';
 
 import { createElement } from '../render.js';
 
-const createTripEventFormTemplate = () =>
+const createPointFormTemplate = () =>
   `
     <li class="trip-events__item">
       <form class="event event--edit" action="#" method="post">
@@ -19,31 +19,31 @@ const createTripEventFormTemplate = () =>
             </label>
             <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
 
-            ${createTripEventTypeListTemplate()}
+            ${createPointTypeListTemplate()}
           </div>
 
-          ${createTripEventDestinationTemplate()}
+          ${createPointDestinationTemplate()}
 
-          ${createTripEventTimeTemplate()}
+          ${createPointTimeTemplate()}
 
-          ${createTripEventPriceTemplate()}
+          ${createPointPriceTemplate()}
 
           <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
           <button class="event__reset-btn" type="reset">Cancel</button>
         </header>
 
         <section class="event__details">
-          ${createTripEventEditOffersTemplate()}
+          ${createPointEditOffersTemplate()}
 
-          ${createTripEventEditInfoTemplate()};
+          ${createPointEditInfoTemplate()};
         </section>
       </form>
     </li>
   `;
 
-class TripEventAddFormView {
+class PointAddFormView {
   getTemplate() {
-    return createTripEventFormTemplate();
+    return createPointFormTemplate();
   }
 
   getElement() {
@@ -59,4 +59,4 @@ class TripEventAddFormView {
   }
 }
 
-export default TripEventAddFormView;
+export default PointAddFormView;

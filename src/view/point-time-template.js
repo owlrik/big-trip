@@ -1,4 +1,4 @@
-const createTripEventTimeTemplate = () =>
+const createPointTimeTemplate = () =>
   `
     <div class="event__field-group  event__field-group--time">
       <label class="visually-hidden" for="event-start-time-1">From</label>
@@ -9,4 +9,4 @@ const createTripEventTimeTemplate = () =>
     </div>
   `;
 
-export { createTripEventTimeTemplate };
+export { createPointTimeTemplate };

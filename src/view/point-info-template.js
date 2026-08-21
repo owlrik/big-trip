@@ -1,4 +1,4 @@
-const createTripEventInfoTemplate = () =>
+const createPointInfoTemplate = () =>
   `
     <time class="event__date" datetime="2019-03-18">MAR 18</time>
     <div class="event__type">
@@ -18,4 +18,4 @@ const createTripEventInfoTemplate = () =>
     </p>
   `;
 
-export { createTripEventInfoTemplate };
+export { createPointInfoTemplate };

@@ -1,4 +1,4 @@
-const createTripEventDestinationTemplate = () =>
+const createPointDestinationTemplate = () =>
   `
     <div class="event__field-group  event__field-group--destination">
       <label class="event__label  event__type-output" for="event-destination-1">
@@ -13,4 +13,4 @@ const createTripEventDestinationTemplate = () =>
     </div>
   `;
 
-export { createTripEventDestinationTemplate };
+export { createPointDestinationTemplate };

@@ -1,4 +1,4 @@
-const createTripEventOffersTemplate = () =>
+const createPointOffersTemplate = () =>
   `
     <h4 class="visually-hidden">Offers:</h4>
     <ul class="event__selected-offers">
@@ -10,4 +10,4 @@ const createTripEventOffersTemplate = () =>
     </ul>
   `;
 
-export { createTripEventOffersTemplate };
+export { createPointOffersTemplate };

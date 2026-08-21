@@ -1,3 +1,3 @@
-const TRIP_EVENTS_COUNT = 3;
+const POINTS_COUNT = 3;
 
-export { TRIP_EVENTS_COUNT };
+export { POINTS_COUNT };

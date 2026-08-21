@@ -1,4 +1,4 @@
-const createTripEventPriceTemplate = () =>
+const createPointPriceTemplate = () =>
   `
     <div class="event__field-group  event__field-group--price">
       <label class="event__label" for="event-price-1">
@@ -9,4 +9,4 @@ const createTripEventPriceTemplate = () =>
     </div>
   `;
 
-export { createTripEventPriceTemplate };
+export { createPointPriceTemplate };

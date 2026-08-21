@@ -1,4 +1,4 @@
-const createTripEventTypeListTemplate = () =>
+const createPointTypeListTemplate = () =>
   `
     <div class="event__type-list">
       <fieldset class="event__type-group">
@@ -52,4 +52,4 @@ const createTripEventTypeListTemplate = () =>
     </div>
   `;
 
-export { createTripEventTypeListTemplate };
+export { createPointTypeListTemplate };

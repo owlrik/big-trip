@@ -1,4 +1,4 @@
-const createTripEventControlsTemplate = () =>
+const createPointControlsTemplate = () =>
   `
     <button class="event__favorite-btn event__favorite-btn--active" type="button">
       <span class="visually-hidden">Add to favorite</span>
@@ -11,4 +11,4 @@ const createTripEventControlsTemplate = () =>
     </button>
   `;
 
-export { createTripEventControlsTemplate };
+export { createPointControlsTemplate };
