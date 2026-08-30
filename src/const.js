@@ -1,3 +1,8 @@
-const POINTS_COUNT = 3;
+const MONTH_NAMES = [
+  'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN',
+  'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
+];
 
-export { POINTS_COUNT };
+const POINTS_COUNT = 10;
+
+export { POINTS_COUNT, MONTH_NAMES };
