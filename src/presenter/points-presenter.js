@@ -1,6 +1,6 @@
 import SortView from '../view/sort-view.js';
 import PointsContainerView from '../view/points-container-view.js';
-import PointEditFormView from '../view/point-edit-form-view.js';
+import PointFormView from '../view/point-form-view.js';
 import PointView from '../view/point-view.js';
 
 import { render } from '../render.js';
@@ -22,7 +22,7 @@ class PointsPresenter {
 
     const editPoint = this.points[0];
     const offersByType = [...this.offersModel.getOffersByType(editPoint.type)];
-    render(new PointEditFormView({point: editPoint, offers: offersByType}), this.pointsContainerComponent.getElement());
+    render(new PointFormView({point: editPoint, offers: offersByType, isNew: false}), this.pointsContainerComponent.getElement());
 
     for (let i = 1; i < this.points.length; i++) {
       const point = this.points[i];

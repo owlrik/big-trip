@@ -1,4 +1,4 @@
-const createPointEditInfoTemplate = ({ description = '', pictures = [] }) => {
+const createPointDestinationInfoTemplate = ({ description = '', pictures = [] }) => {
   if (!description && !pictures.length) {
     return '';
   }
@@ -23,4 +23,4 @@ const createPointEditInfoTemplate = ({ description = '', pictures = [] }) => {
   `;
 };
 
-export { createPointEditInfoTemplate };
+export { createPointDestinationInfoTemplate };
