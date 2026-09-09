@@ -17,7 +17,7 @@ const createPointInfoTemplate = (point) => {
   const duration = getDatesDiff(dateFrom, dateTo);
 
   return `
-    <time class="event__date" datetime="2019-03-18">${date}</time>
+    <time class="event__date" datetime="${dateFrom}">${date}</time>
     <div class="event__type">
       <img class="event__type-icon" width="42" height="42" src="img/icons/${type.toLowerCase()}.png" alt="Event type icon">
     </div>
@@ -27,9 +27,9 @@ const createPointInfoTemplate = (point) => {
     </h3>
     <div class="event__schedule">
       <p class="event__time">
-        <time class="event__start-time" datetime="2019-03-18T10:30">${startTime}</time>
+        <time class="event__start-time" datetime="${dateFrom}">${startTime}</time>
         &mdash;
-        <time class="event__end-time" datetime="2019-03-18T11:00">${endTime}</time>
+        <time class="event__end-time" datetime="${dateTo}">${endTime}</time>
       </p>
       <p class="event__duration">${duration}</p>
     </div>
