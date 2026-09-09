@@ -20,8 +20,9 @@ class PointsPresenter {
     render(new SortView(), this.container);
     render(this.pointsContainerComponent, this.container);
 
-    const offers = [...this.offersModel.getOffers(this.points[0])];
-    render(new PointEditFormView(this.points[0], offers), this.pointsContainerComponent.getElement());
+    const editPoint = this.points[0];
+    const offersByType = [...this.offersModel.getOffersByType(editPoint.type)];
+    render(new PointEditFormView({point: editPoint, offers: offersByType}), this.pointsContainerComponent.getElement());
 
     for (let i = 1; i < this.points.length; i++) {
       const point = this.points[i];

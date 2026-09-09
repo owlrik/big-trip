@@ -7,26 +7,34 @@ import { createPointEditInfoTemplate } from './point-edit-info-template.js';
 
 import { createElement } from '../render.js';
 
-const createPointFormTemplate = () =>
-  `
+const createPointFormTemplate = (point, offers) => {
+  const {
+    type,
+    destination,
+    dateFrom,
+    dateTo,
+    basePrice
+  } = point;
+
+  return `
     <li class="trip-events__item">
       <form class="event event--edit" action="#" method="post">
         <header class="event__header">
           <div class="event__type-wrapper">
             <label class="event__type  event__type-btn" for="event-type-toggle-1">
               <span class="visually-hidden">Choose event type</span>
-              <img class="event__type-icon" width="17" height="17" src="img/icons/flight.png" alt="Event type icon">
+              <img class="event__type-icon" width="17" height="17" src="img/icons/${type.toLowerCase()}.png" alt="Event type icon">
             </label>
             <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
 
             ${createPointTypeListTemplate()}
           </div>
 
-          ${createPointDestinationTemplate()}
+          ${createPointDestinationTemplate({type, destination})}
 
-          ${createPointTimeTemplate()}
+          ${createPointTimeTemplate({dateFrom, dateTo})}
 
-          ${createPointPriceTemplate()}
+          ${createPointPriceTemplate(basePrice)}
 
           <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
           <button class="event__reset-btn" type="reset">Delete</button>
@@ -36,17 +44,23 @@ const createPointFormTemplate = () =>
         </header>
 
         <section class="event__details">
-          ${createPointEditOffersTemplate()}
+          ${createPointEditOffersTemplate({selectedOffers: point.offers, offers})}
 
-          ${createPointEditInfoTemplate()};
+          ${createPointEditInfoTemplate(destination)}
         </section>
       </form>
     </li>
   `;
+};
 
 class PointEditFormView {
+  constructor({ point, offers }) {
+    this.point = point;
+    this.offers = offers;
+  }
+
   getTemplate() {
-    return createPointFormTemplate();
+    return createPointFormTemplate(this.point, this.offers);
   }
 
   getElement() {
