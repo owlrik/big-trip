@@ -4,22 +4,27 @@ import { createPointControlsTemplate } from './point-controls-template.js';
 
 import { createElement } from '../render.js';
 
-const createPointTemplate = () =>
+const createPointTemplate = (point, offers) =>
   `
     <li class="trip-events__item">
       <div class="event">
-        ${createPointInfoTemplate()}
+        ${createPointInfoTemplate(point)}
 
-        ${createPointOffersTemplate()}
+        ${createPointOffersTemplate(offers)}
 
-        ${createPointControlsTemplate()}
+        ${createPointControlsTemplate(point)}
       </div>
     </li>
   `;
 
 class PointView {
+  constructor({ point, offers }) {
+    this.point = point;
+    this.offers = offers;
+  }
+
   getTemplate() {
-    return createPointTemplate();
+    return createPointTemplate(this.point, this.offers);
   }
 
   getElement() {

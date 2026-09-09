@@ -1,6 +1,6 @@
 const BasePrice = {
   MIN: 10,
-  MAX: 5000
+  MAX: 500
 };
 
 const OfferPrice = {
@@ -10,7 +10,7 @@ const OfferPrice = {
 
 const MinutesDuration = {
   MIN: 10,
-  MAX: 10080
+  MAX: 2880
 };
 
 const DaysDuration = {

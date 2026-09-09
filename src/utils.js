@@ -31,33 +31,34 @@ const getRandomPositiveIntegerByStep = (a, b, step = 1) => {
 
 const getRandomArrayElement = (items) => items[Math.floor(Math.random() * items.length)];
 
-const getDatesDiff = (dateFrom, dateTo) => {
-  const MILLISECONDS_PER_MINUTE = 6000;
+const getDatesDiff = (dateIsoFrom, dateIsoTo) => {
+  const MILLISECONDS_PER_MINUTE = 60000;
   const MINUTES_PER_HOUR = 60;
   const HOURS_PER_DAY = 24;
 
-  const diffInMinutes = Math.floor((dateTo - dateFrom) / MILLISECONDS_PER_MINUTE);
-  const diffInHours = Math.floor(diffInMinutes / MINUTES_PER_HOUR);
-  const diffInDays = Math.floor(diffInHours / HOURS_PER_DAY);
+  const diffInMinutes = Math.floor((new Date(dateIsoTo) - new Date(dateIsoFrom)) / MILLISECONDS_PER_MINUTE);
+  const days = Math.floor(diffInMinutes / (MINUTES_PER_HOUR * HOURS_PER_DAY));
+  const hours = Math.floor(diffInMinutes / MINUTES_PER_HOUR) % HOURS_PER_DAY;
+  const minutes = diffInMinutes % MINUTES_PER_HOUR;
 
   if (diffInMinutes < MINUTES_PER_HOUR) {
     return `${diffInMinutes}M`;
-  } else if (diffInHours < HOURS_PER_DAY) {
+  } else if (days === 0) {
     return `
-      ${String(diffInHours).padStart(2, '0')}H
-      ${String(Math.floor(diffInMinutes / MINUTES_PER_HOUR)).padStart(2, '0')}M`;
+      ${String(hours).padStart(2, '0')}H
+      ${String(minutes).padStart(2, '0')}M`;
   } else {
     return `
-      ${String(diffInDays).padStart(2, '0')}D
-      ${String(Math.floor(diffInHours / HOURS_PER_DAY)).padStart(2, '0')}H
-      ${String(Math.floor(diffInMinutes / MINUTES_PER_HOUR)).padStart(2, '0')}M`;
+      ${String(days).padStart(2, '0')}D
+      ${String(hours).padStart(2, '0')}H
+      ${String(minutes).padStart(2, '0')}M`;
   }
 };
 
 const formatStringToDate = (dateIso) => {
   const date = new Date(dateIso);
 
-  const month = MONTH_NAMES(date.getMonth());
+  const month = MONTH_NAMES[date.getMonth()];
   const day = date.getDate();
 
   return `${month} ${day}`;
@@ -91,4 +92,3 @@ export {
   formatStringToDateWithTime,
   getDatesDiff
 };
-
