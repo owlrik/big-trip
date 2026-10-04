@@ -1,10 +1,10 @@
 import { generatePoints } from '../mock/point.js';
 
 class PointsModel {
-  points = generatePoints();
+  #points = generatePoints();
 
-  getPoints() {
-    return this.points;
+  get points() {
+    return this.#points;
   }
 }
 

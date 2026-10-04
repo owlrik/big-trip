@@ -62,26 +62,32 @@ const createPointFormTemplate = (point, offers, isNew) => {
 };
 
 class PointFormView {
+  #point = null;
+  #offers = null;
+  #isNew = true;
+
+  #element = null;
+
   constructor({ point, offers, isNew }) {
-    this.point = point;
-    this.offers = offers;
-    this.isNew = isNew;
+    this.#point = point;
+    this.#offers = offers;
+    this.#isNew = isNew;
   }
 
-  getTemplate() {
-    return createPointFormTemplate(this.point, this.offers, this.isNew);
+  get template() {
+    return createPointFormTemplate(this.#point, this.#offers, this.#isNew);
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
 
-    return this.element;
+    return this.#element;
   }
 
   removeElement() {
-    this.element = null;
+    this.#element = null;
   }
 }
 
