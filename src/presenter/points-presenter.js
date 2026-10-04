@@ -26,20 +26,44 @@ class PointsPresenter {
     render(new SortView(), this.#container);
     render(this.#pointsContainerComponent, this.#container);
 
-    const editPoint = this.#points[0];
-    const offersByType = [...this.#offersModel.getOffersByType(editPoint.type)];
-    render(new PointFormView({point: editPoint, offers: offersByType, isNew: false}), this.#pointsContainerComponent.element);
-
     this.#points.forEach((point) => {
       this.#renderPoint(point);
     });
   };
 
   #renderPoint = (point) => {
-    const offers = [...this.#offersModel.getOffers(point)];
-    const pointComponent = new PointView({point, offers});
+    const selectedOffers = [...this.#offersModel.getOffers(point)];
+    const pointComponent = new PointView({point, offers: selectedOffers});
+
+    const availableOffers = [...this.#offersModel.getOffersByType(point.type)];
+    const pointFormComponent = new PointFormView({point, offers: availableOffers, isNew: false});
+
+    const pointEditButtonElement = pointComponent.element.querySelector('.event__rollup-btn');
+    const pointFormElement = pointFormComponent.element.querySelector('.event');
+    const pointFormCloseButtonElement = pointFormComponent.element.querySelector('.event__rollup-btn');
+
+    pointEditButtonElement.addEventListener('click', () => {
+      this.#replacePointCardToForm(pointComponent.element, pointFormComponent.element);
+    });
+
+    pointFormElement.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+      this.#replacePointFormToCard(pointComponent.element, pointFormComponent.element);
+    });
+
+    pointFormCloseButtonElement.addEventListener('click', () => {
+      this.#replacePointFormToCard(pointComponent.element, pointFormComponent.element);
+    });
 
     render(pointComponent, this.#pointsContainerComponent.element);
+  };
+
+  #replacePointCardToForm = (cardElement, formElement) => {
+    this.#pointsContainerComponent.element.replaceChild(formElement, cardElement);
+  };
+
+  #replacePointFormToCard = (cardElement, formElement) => {
+    this.#pointsContainerComponent.element.replaceChild(cardElement, formElement);
   };
 }
 
