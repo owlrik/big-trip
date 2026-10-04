@@ -20,7 +20,7 @@ class PointsPresenter {
     this.#offersModel = offersModel;
   }
 
-  init() {
+  init = () => {
     this.#points = [...this.#pointsModel.points];
 
     render(new SortView(), this.#container);
@@ -30,12 +30,17 @@ class PointsPresenter {
     const offersByType = [...this.#offersModel.getOffersByType(editPoint.type)];
     render(new PointFormView({point: editPoint, offers: offersByType, isNew: false}), this.#pointsContainerComponent.element);
 
-    for (let i = 1; i < this.#points.length; i++) {
-      const point = this.#points[i];
-      const pointOffers = [...this.#offersModel.getOffers(point)];
-      render(new PointView({point, offers: pointOffers}), this.#pointsContainerComponent.element);
-    }
-  }
+    this.#points.forEach((point) => {
+      this.#renderPoint(point);
+    });
+  };
+
+  #renderPoint = (point) => {
+    const offers = [...this.#offersModel.getOffers(point)];
+    const pointComponent = new PointView({point, offers});
+
+    render(pointComponent, this.#pointsContainerComponent.element);
+  };
 }
 
 export default PointsPresenter;
