@@ -31,6 +31,8 @@ const getRandomPositiveIntegerByStep = (a, b, step = 1) => {
 
 const getRandomArrayElement = (items) => items[Math.floor(Math.random() * items.length)];
 
+const isEscapeKey = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+
 const getDatesDiff = (dateIsoFrom, dateIsoTo) => {
   const MILLISECONDS_PER_MINUTE = 60000;
   const MINUTES_PER_HOUR = 60;
@@ -87,6 +89,7 @@ export {
   getRandomPositiveInteger,
   getRandomPositiveIntegerByStep,
   getRandomArrayElement,
+  isEscapeKey,
   formatStringToDate,
   formatStringToTime,
   formatStringToDateWithTime,

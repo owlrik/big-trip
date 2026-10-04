@@ -5,8 +5,12 @@ import PointView from '../view/point-view.js';
 
 import { render } from '../render.js';
 
+import { isEscapeKey } from '../utils.js';
+
 class PointsPresenter {
   #pointsContainerComponent = new PointsContainerView();
+  #selectedPointComponent = null;
+  #pointFormComponent = null;
 
   #container = null;
   #pointsModel = null;
@@ -43,27 +47,39 @@ class PointsPresenter {
     const pointFormCloseButtonElement = pointFormComponent.element.querySelector('.event__rollup-btn');
 
     pointEditButtonElement.addEventListener('click', () => {
-      this.#replacePointCardToForm(pointComponent.element, pointFormComponent.element);
+      this.#selectedPointComponent = pointComponent;
+      this.#pointFormComponent = pointFormComponent;
+      this.#replacePointCardToForm();
+      document.addEventListener('keydown', this.#onEscKeyDown);
     });
 
     pointFormElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this.#replacePointFormToCard(pointComponent.element, pointFormComponent.element);
+      this.#replacePointFormToCard();
+      document.removeEventListener('keydown', this.#onEscKeyDown);
     });
 
     pointFormCloseButtonElement.addEventListener('click', () => {
-      this.#replacePointFormToCard(pointComponent.element, pointFormComponent.element);
+      this.#replacePointFormToCard();
+      document.removeEventListener('keydown', this.#onEscKeyDown);
     });
 
     render(pointComponent, this.#pointsContainerComponent.element);
   };
 
-  #replacePointCardToForm = (cardElement, formElement) => {
-    this.#pointsContainerComponent.element.replaceChild(formElement, cardElement);
+  #replacePointCardToForm = () => {
+    this.#pointsContainerComponent.element.replaceChild(this.#pointFormComponent.element, this.#selectedPointComponent.element);
   };
 
-  #replacePointFormToCard = (cardElement, formElement) => {
-    this.#pointsContainerComponent.element.replaceChild(cardElement, formElement);
+  #replacePointFormToCard = () => {
+    this.#pointsContainerComponent.element.replaceChild(this.#selectedPointComponent.element, this.#pointFormComponent.element);
+  };
+
+  #onEscKeyDown = (evt) => {
+    if (isEscapeKey(evt)) {
+      evt.preventDefault();
+      this.#replacePointFormToCard();
+    }
   };
 }
 
