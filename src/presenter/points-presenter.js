@@ -1,5 +1,6 @@
 import SortView from '../view/sort-view.js';
 import PointsContainerView from '../view/points-container-view.js';
+import PointListEmptyView from '../view/point-list-empty-view.js';
 import PointFormView from '../view/point-form-view.js';
 import PointView from '../view/point-view.js';
 
@@ -26,6 +27,11 @@ class PointsPresenter {
 
   init = () => {
     this.#points = [...this.#pointsModel.points];
+
+    if (this.#points.length === 0) {
+      render(new PointListEmptyView(), this.#container);
+      return;
+    }
 
     render(new SortView(), this.#container);
     render(this.#pointsContainerComponent, this.#container);

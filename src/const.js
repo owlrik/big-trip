@@ -3,6 +3,6 @@ const MONTH_NAMES = [
   'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
 ];
 
-const POINTS_COUNT = 10;
+const POINTS_COUNT = 20;
 
 export { POINTS_COUNT, MONTH_NAMES };
