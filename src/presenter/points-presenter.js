@@ -28,6 +28,10 @@ class PointsPresenter {
   init = () => {
     this.#points = [...this.#pointsModel.points];
 
+    this.#renderPointBoard();
+  };
+
+  #renderPointBoard = () => {
     if (this.#points.length === 0) {
       render(new PointListEmptyView(), this.#container);
       return;
