@@ -1,6 +1,6 @@
-import { getRandomPositiveIntegerByStep } from '../utils.js';
-
 import { OfferPrice, offersByType, pointTypes } from './const.js';
+
+import { getRandomPositiveIntegerByStep } from '../utils/common.js';
 
 const generateOffers = () => {
   const PRICE_STEP = 10;

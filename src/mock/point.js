@@ -1,13 +1,13 @@
 import { generateOffers } from './offer.js';
 
-import { getRandomPositiveInteger, getRandomArrayElement } from '../utils.js';
-
 import {
   pointTypes, pointNames, pointDescriptions,
   photos, BasePrice, MinutesDuration, DaysDuration
 } from './const.js';
 
 import { POINTS_COUNT } from '../const.js';
+
+import { getRandomArrayElement, getRandomPositiveInteger } from '../utils/common.js';
 
 const getDate = () => {
   const date = new Date();

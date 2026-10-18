@@ -1,4 +1,4 @@
-import { formatStringToDate, formatStringToTime, getDatesDiff } from '../utils.js';
+import { formatStringToDate, formatStringToTime, getDatesDiff } from '../utils/point.js';
 
 const createPointInfoTemplate = (point) => {
   const {

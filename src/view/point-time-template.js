@@ -1,4 +1,4 @@
-import { formatStringToDateWithTime } from '../utils.js';
+import { formatStringToDateWithTime } from '../utils/point.js';
 
 const createPointTimeTemplate = ({ dateFrom, dateTo }) => {
   const startDate = formatStringToDateWithTime(dateFrom);

@@ -1,12 +1,12 @@
+import { render, replace } from '../framework/render.js';
+
 import SortView from '../view/sort-view.js';
 import PointsContainerView from '../view/points-container-view.js';
 import PointListEmptyView from '../view/point-list-empty-view.js';
 import PointFormView from '../view/point-form-view.js';
 import PointView from '../view/point-view.js';
 
-import { render } from '../render.js';
-
-import { isEscapeKey } from '../utils.js';
+import { isEscapeKey } from '../utils/common.js';
 
 class PointsPresenter {
   #pointsContainerComponent = new PointsContainerView();
@@ -73,11 +73,11 @@ class PointsPresenter {
   };
 
   #replacePointCardToForm = () => {
-    this.#pointsContainerComponent.element.replaceChild(this.#pointFormComponent.element, this.#selectedPointComponent.element);
+    replace(this.#pointFormComponent, this.#selectedPointComponent);
   };
 
   #replacePointFormToCard = () => {
-    this.#pointsContainerComponent.element.replaceChild(this.#selectedPointComponent.element, this.#pointFormComponent.element);
+    replace(this.#selectedPointComponent, this.#pointFormComponent);
   };
 
   #onEscKeyDown = (evt) => {
