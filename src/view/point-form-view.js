@@ -1,11 +1,11 @@
+import AbstractView from '../framework/view/abstract-view.js';
+
 import { createPointTypeListTemplate } from './point-type-list-template.js';
 import { createPointDestinationTemplate } from './point-destination-template.js';
 import { createPointTimeTemplate } from './point-time-template.js';
 import { createPointPriceTemplate } from './point-price-template.js';
 import { createPointEditOffersTemplate } from './point-edit-offers-template.js';
 import { createPointDestinationInfoTemplate } from './point-destination-info-template.js';
-
-import { createElement } from '../render.js';
 
 const createPointFormTemplate = (point, offers, isNew) => {
   const {
@@ -61,14 +61,14 @@ const createPointFormTemplate = (point, offers, isNew) => {
   `;
 };
 
-class PointFormView {
+class PointFormView extends AbstractView {
   #point = null;
   #offers = null;
   #isNew = true;
 
-  #element = null;
-
   constructor({ point, offers, isNew }) {
+    super();
+
     this.#point = point;
     this.#offers = offers;
     this.#isNew = isNew;
@@ -76,18 +76,6 @@ class PointFormView {
 
   get template() {
     return createPointFormTemplate(this.#point, this.#offers, this.#isNew);
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }
 
