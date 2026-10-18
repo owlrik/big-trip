@@ -52,24 +52,19 @@ class PointsPresenter {
     const availableOffers = [...this.#offersModel.getOffersByType(point.type)];
     const pointFormComponent = new PointFormView({point, offers: availableOffers, isNew: false});
 
-    const pointEditButtonElement = pointComponent.element.querySelector('.event__rollup-btn');
-    const pointFormElement = pointFormComponent.element.querySelector('.event');
-    const pointFormCloseButtonElement = pointFormComponent.element.querySelector('.event__rollup-btn');
-
-    pointEditButtonElement.addEventListener('click', () => {
+    pointComponent.setEditButtonClickHandler(() => {
       this.#selectedPointComponent = pointComponent;
       this.#pointFormComponent = pointFormComponent;
       this.#replacePointCardToForm();
       document.addEventListener('keydown', this.#onEscKeyDown);
     });
 
-    pointFormElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
+    pointFormComponent.setFormSubmitHandler(() => {
       this.#replacePointFormToCard();
       document.removeEventListener('keydown', this.#onEscKeyDown);
     });
 
-    pointFormCloseButtonElement.addEventListener('click', () => {
+    pointFormComponent.setButtonCloseHandler(() => {
       this.#replacePointFormToCard();
       document.removeEventListener('keydown', this.#onEscKeyDown);
     });

@@ -77,6 +77,34 @@ class PointFormView extends AbstractView {
   get template() {
     return createPointFormTemplate(this.#point, this.#offers, this.#isNew);
   }
+
+  setFormSubmitHandler = (callback) => {
+    this._callback.formSubmit = callback;
+
+    const pointFormElement = this.element.querySelector('.event');
+
+    pointFormElement.addEventListener('submit', this.#formSubmitHandler);
+  };
+
+  setButtonCloseHandler = (callback) => {
+    this._callback.closeButtonClick = callback;
+
+    const pointFormCloseButtonElement = this.element.querySelector('.event__rollup-btn');
+
+    pointFormCloseButtonElement.addEventListener('click', this.#buttonCloseHandler);
+  };
+
+  #formSubmitHandler = (evt) => {
+    evt.preventDefault();
+
+    this._callback.formSubmit();
+  };
+
+  #buttonCloseHandler = (evt) => {
+    evt.preventDefault();
+
+    this._callback.closeButtonClick();
+  };
 }
 
 export default PointFormView;
