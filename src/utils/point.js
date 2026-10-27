@@ -52,9 +52,22 @@ const formatStringToDateWithTime = (dateIso) => {
   return `${day}/${month}/${year} ${formatStringToTime(dateIso)}`;
 };
 
+const isPastPoint = ({ dateTo }) => Date.parse(dateTo) < Date.now();
+
+const isFuturePoint = ({ dateFrom }) => Date.parse(dateFrom) > Date.now();
+
+const isCurrentPoint = ({ dateFrom, dateTo }) => {
+  const currentDate = Date.now();
+
+  return Date.parse(dateFrom) <= currentDate && Date.parse(dateTo) >= currentDate;
+};
+
 export {
   formatStringToDate,
   formatStringToTime,
   formatStringToDateWithTime,
-  getDatesDiff
+  getDatesDiff,
+  isPastPoint,
+  isFuturePoint,
+  isCurrentPoint
 };

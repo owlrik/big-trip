@@ -5,4 +5,10 @@ const MONTH_NAMES = [
 
 const POINTS_COUNT = 20;
 
-export { POINTS_COUNT, MONTH_NAMES };
+const FilterType = {
+  EVERYTHING: 'everything',
+  FUTURE: 'future',
+  PAST: 'past'
+};
+
+export { POINTS_COUNT, MONTH_NAMES, FilterType };
