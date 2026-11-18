@@ -16,8 +16,11 @@ class PointPresenter {
   #selectedOffers = null;
   #isNew = false;
 
-  constructor({ container }) {
+  #pointChangeHandler = null;
+
+  constructor({ container, onDataChange }) {
     this.#container = container;
+    this.#pointChangeHandler = onDataChange;
   }
 
   init = (point, availableOffers, selectedOffers) => {
@@ -31,6 +34,7 @@ class PointPresenter {
     this.#pointComponent = new PointView({point: this.#point, offers: this.#selectedOffers});
     this.#pointFormComponent = new PointFormView({point: this.#point, offers: this.#availableOffers, isNew: this.#isNew});
 
+    this.#pointComponent.setFavoriteButtonClickHandler(this.#favoriteButtonClickHandler);
     this.#pointComponent.setEditButtonClickHandler(this.#editButtonClickHandler);
     this.#pointFormComponent.setFormSubmitHandler(this.#formSubmitHandler);
     this.#pointFormComponent.setButtonCloseHandler(this.#buttonCloseHandler);
@@ -74,6 +78,13 @@ class PointPresenter {
 
   #buttonCloseHandler = () => {
     this.#replacePointFormToCard();
+  };
+
+  #favoriteButtonClickHandler = () => {
+    this.#pointChangeHandler({
+      ...this.#point,
+      isFavorite: !this.#point.isFavorite
+    });
   };
 
   #escKeyDownHandler = (evt) => {

@@ -66,7 +66,10 @@ class PointsPresenter {
     const availableOffers = [...this.#offersModel.getOffersByType(point.type)];
     const selectedOffers = [...this.#offersModel.getOffers(point)];
 
-    const pointPresenter = new PointPresenter({container: this.#container});
+    const pointPresenter = new PointPresenter({
+      container: this.#container,
+      onDataChange: this.#pointChangeHandler
+    });
 
     pointPresenter.init(point, availableOffers, selectedOffers);
 
@@ -81,7 +84,10 @@ class PointsPresenter {
   #pointChangeHandler = (updatedPoint) => {
     this.#points = updateItem(this.#points, updatedPoint);
 
-    this.#pointPresenters.get(updatedPoint.id).init();
+    const availableOffers = [...this.#offersModel.getOffersByType(updatedPoint.type)];
+    const selectedOffers = [...this.#offersModel.getOffers(updatedPoint)];
+
+    this.#pointPresenters.get(updatedPoint.id).init(updatedPoint, availableOffers, selectedOffers);
   };
 }
 

@@ -32,12 +32,26 @@ class PointView extends AbstractView {
     return createPointTemplate(this.#point, this.#offers);
   }
 
+  setFavoriteButtonClickHandler = (callback) => {
+    this._callback.favoriteButtonClick = callback;
+
+    const pointFavoriteButtonElement = this.element.querySelector('.event__favorite-btn');
+
+    pointFavoriteButtonElement.addEventListener('click', this.#favoriteButtonClickHandler);
+  };
+
   setEditButtonClickHandler = (callback) => {
     this._callback.editButtonClick = callback;
 
     const pointEditButtonElement = this.element.querySelector('.event__rollup-btn');
 
     pointEditButtonElement.addEventListener('click', this.#editButtonClickHandler);
+  };
+
+  #favoriteButtonClickHandler = (evt) => {
+    evt.preventDefault();
+
+    this._callback.favoriteButtonClick();
   };
 
   #editButtonClickHandler = (evt) => {
