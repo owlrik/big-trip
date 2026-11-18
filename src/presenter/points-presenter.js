@@ -11,6 +11,8 @@ class PointsPresenter {
   #pointsModel = null;
   #offersModel = null;
 
+  #pointPresenters = new Map();
+
   #sortComponent = new SortView();
   #pointsContainerComponent = new PointsContainerView();
 
@@ -65,6 +67,13 @@ class PointsPresenter {
     const pointPresenter = new PointPresenter({container: this.#container});
 
     pointPresenter.init(point, availableOffers, selectedOffers);
+
+    this.#pointPresenters.set(point.id, pointPresenter);
+  };
+
+  #clearPointList = () => {
+    this.#pointPresenters.forEach((presenter) => presenter.destroy());
+    this.#pointPresenters.clear();
   };
 }
 
