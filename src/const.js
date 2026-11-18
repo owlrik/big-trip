@@ -11,4 +11,9 @@ const FilterType = {
   PAST: 'past'
 };
 
-export { POINTS_COUNT, MONTH_NAMES, FilterType };
+const PointMode = {
+  DEFAULT: 'DEFAULT',
+  EDITING: 'EDITING'
+};
+
+export { POINTS_COUNT, MONTH_NAMES, FilterType, PointMode };

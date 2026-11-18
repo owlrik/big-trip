@@ -5,6 +5,8 @@ import PointFormView from '../view/point-form-view.js';
 
 import { isEscapeKey } from '../utils/common.js';
 
+import { PointMode } from '../const.js';
+
 class PointPresenter {
   #container = null;
 
@@ -16,11 +18,15 @@ class PointPresenter {
   #selectedOffers = null;
   #isNew = false;
 
-  #pointChangeHandler = null;
+  #mode = PointMode.DEFAULT;
 
-  constructor({ container, onDataChange }) {
+  #pointChangeHandler = null;
+  #modeChangeHandler = null;
+
+  constructor({ container, onDataChange, onModeChange }) {
     this.#container = container;
     this.#pointChangeHandler = onDataChange;
+    this.#modeChangeHandler = onModeChange;
   }
 
   init = (point, availableOffers, selectedOffers) => {
@@ -44,13 +50,16 @@ class PointPresenter {
       return;
     }
 
-    if (this.#container.contains(prevPointComponent.element)) {
+    if (this.#mode === PointMode.DEFAULT) {
       replace(this.#pointComponent, prevPointComponent);
     }
 
-    if (this.#container.contains(prevPointFormComponent.element)) {
+    if (this.#mode === PointMode.EDITING) {
       replace(this.#pointFormComponent, prevPointFormComponent);
     }
+
+    remove(prevPointComponent);
+    remove(prevPointFormComponent);
   };
 
   destroy = () => {
@@ -58,21 +67,31 @@ class PointPresenter {
     remove(this.#pointFormComponent);
   };
 
+  resetView = () => {
+    if (this.#mode !== PointMode.DEFAULT) {
+      this.#replacePointFormToCard();
+    }
+  };
+
   #replacePointCardToForm = () => {
     replace(this.#pointFormComponent, this.#pointComponent);
     document.addEventListener('keydown', this.#escKeyDownHandler);
+    this.#modeChangeHandler();
+    this.#mode = PointMode.EDITING;
   };
 
   #replacePointFormToCard = () => {
     replace(this.#pointComponent, this.#pointFormComponent);
     document.removeEventListener('keydown', this.#escKeyDownHandler);
+    this.#mode = PointMode.DEFAULT;
   };
 
   #editButtonClickHandler = () => {
     this.#replacePointCardToForm();
   };
 
-  #formSubmitHandler = () => {
+  #formSubmitHandler = (point) => {
+    this.#pointChangeHandler(point);
     this.#replacePointFormToCard();
   };
 

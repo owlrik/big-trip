@@ -41,7 +41,7 @@ class PointsPresenter {
     this.#renderSort(this.#container);
     this.#renderPointListContainer(this.#container);
 
-    this.#renderPoints();
+    this.#renderPoints(this.#pointsContainerComponent.element);
   };
 
   #renderNoPoints = (container) => {
@@ -56,19 +56,20 @@ class PointsPresenter {
     render(this.#pointsContainerComponent, container);
   };
 
-  #renderPoints = () => {
+  #renderPoints = (container) => {
     this.#points.forEach((point) => {
-      this.#renderPoint(point);
+      this.#renderPoint(point, container);
     });
   };
 
-  #renderPoint = (point) => {
+  #renderPoint = (point, container) => {
     const availableOffers = [...this.#offersModel.getOffersByType(point.type)];
     const selectedOffers = [...this.#offersModel.getOffers(point)];
 
     const pointPresenter = new PointPresenter({
-      container: this.#container,
-      onDataChange: this.#pointChangeHandler
+      container,
+      onDataChange: this.#pointChangeHandler,
+      onModeChange: this.#modeChangeHandler
     });
 
     pointPresenter.init(point, availableOffers, selectedOffers);
@@ -88,6 +89,10 @@ class PointsPresenter {
     const selectedOffers = [...this.#offersModel.getOffers(updatedPoint)];
 
     this.#pointPresenters.get(updatedPoint.id).init(updatedPoint, availableOffers, selectedOffers);
+  };
+
+  #modeChangeHandler = () => {
+    this.#pointPresenters.forEach((presenter) => presenter.resetView());
   };
 }
 
