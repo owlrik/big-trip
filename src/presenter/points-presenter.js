@@ -6,6 +6,8 @@ import SortView from '../view/sort-view.js';
 import PointsContainerView from '../view/points-container-view.js';
 import PointListEmptyView from '../view/point-list-empty-view.js';
 
+import { updateItem } from '../utils/common.js';
+
 class PointsPresenter {
   #container = null;
   #pointsModel = null;
@@ -74,6 +76,12 @@ class PointsPresenter {
   #clearPointList = () => {
     this.#pointPresenters.forEach((presenter) => presenter.destroy());
     this.#pointPresenters.clear();
+  };
+
+  #pointChangeHandler = (updatedPoint) => {
+    this.#points = updateItem(this.#points, updatedPoint);
+
+    this.#pointPresenters.get(updatedPoint.id).init();
   };
 }
 
