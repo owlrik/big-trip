@@ -1,4 +1,4 @@
-import {render, replace} from '../framework/render.js';
+import { render, replace, remove } from '../framework/render.js';
 
 import PointView from '../view/point-view.js';
 import PointFormView from '../view/point-form-view.js';
@@ -25,6 +25,9 @@ class PointPresenter {
     this.#availableOffers = availableOffers;
     this.#selectedOffers = selectedOffers;
 
+    const prevPointComponent = this.#pointComponent;
+    const prevPointFormComponent = this.#pointFormComponent;
+
     this.#pointComponent = new PointView({point: this.#point, offers: this.#selectedOffers});
     this.#pointFormComponent = new PointFormView({point: this.#point, offers: this.#availableOffers, isNew: this.#isNew});
 
@@ -32,7 +35,23 @@ class PointPresenter {
     this.#pointFormComponent.setFormSubmitHandler(this.#formSubmitHandler);
     this.#pointFormComponent.setButtonCloseHandler(this.#buttonCloseHandler);
 
-    render(this.#pointComponent, this.#container);
+    if (prevPointComponent === null || prevPointFormComponent === null) {
+      render(this.#pointComponent, this.#container);
+      return;
+    }
+
+    if (this.#container.contains(prevPointComponent.element)) {
+      replace(this.#pointComponent, prevPointComponent);
+    }
+
+    if (this.#container.contains(prevPointFormComponent.element)) {
+      replace(this.#pointFormComponent, prevPointFormComponent);
+    }
+  };
+
+  destroy = () => {
+    remove(this.#pointComponent);
+    remove(this.#pointFormComponent);
   };
 
   #replacePointCardToForm = () => {
