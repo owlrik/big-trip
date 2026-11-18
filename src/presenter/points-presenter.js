@@ -1,12 +1,10 @@
-import { render, replace } from '../framework/render.js';
+import { render } from '../framework/render.js';
+
+import PointPresenter from './point-presenter.js';
 
 import SortView from '../view/sort-view.js';
 import PointsContainerView from '../view/points-container-view.js';
 import PointListEmptyView from '../view/point-list-empty-view.js';
-import PointFormView from '../view/point-form-view.js';
-import PointView from '../view/point-view.js';
-
-import { isEscapeKey } from '../utils/common.js';
 
 class PointsPresenter {
   #container = null;
@@ -15,8 +13,6 @@ class PointsPresenter {
 
   #sortComponent = new SortView();
   #pointsContainerComponent = new PointsContainerView();
-  #selectedPointComponent = null;
-  #pointFormComponent = null;
 
   #points = [];
 
@@ -63,45 +59,12 @@ class PointsPresenter {
   };
 
   #renderPoint = (point) => {
-    const selectedOffers = [...this.#offersModel.getOffers(point)];
-    const pointComponent = new PointView({point, offers: selectedOffers});
-
     const availableOffers = [...this.#offersModel.getOffersByType(point.type)];
-    const pointFormComponent = new PointFormView({point, offers: availableOffers, isNew: false});
+    const selectedOffers = [...this.#offersModel.getOffers(point)];
 
-    pointComponent.setEditButtonClickHandler(() => {
-      this.#selectedPointComponent = pointComponent;
-      this.#pointFormComponent = pointFormComponent;
-      this.#replacePointCardToForm();
-      document.addEventListener('keydown', this.#onEscKeyDown);
-    });
+    const pointPresenter = new PointPresenter({container: this.#container});
 
-    pointFormComponent.setFormSubmitHandler(() => {
-      this.#replacePointFormToCard();
-      document.removeEventListener('keydown', this.#onEscKeyDown);
-    });
-
-    pointFormComponent.setButtonCloseHandler(() => {
-      this.#replacePointFormToCard();
-      document.removeEventListener('keydown', this.#onEscKeyDown);
-    });
-
-    render(pointComponent, this.#pointsContainerComponent.element);
-  };
-
-  #replacePointCardToForm = () => {
-    replace(this.#pointFormComponent, this.#selectedPointComponent);
-  };
-
-  #replacePointFormToCard = () => {
-    replace(this.#selectedPointComponent, this.#pointFormComponent);
-  };
-
-  #onEscKeyDown = (evt) => {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
-      this.#replacePointFormToCard();
-    }
+    pointPresenter.init(point, availableOffers, selectedOffers);
   };
 }
 
