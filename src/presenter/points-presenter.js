@@ -9,13 +9,14 @@ import PointView from '../view/point-view.js';
 import { isEscapeKey } from '../utils/common.js';
 
 class PointsPresenter {
-  #pointsContainerComponent = new PointsContainerView();
-  #selectedPointComponent = null;
-  #pointFormComponent = null;
-
   #container = null;
   #pointsModel = null;
   #offersModel = null;
+
+  #sortComponent = new SortView();
+  #pointsContainerComponent = new PointsContainerView();
+  #selectedPointComponent = null;
+  #pointFormComponent = null;
 
   #points = [];
 
@@ -33,13 +34,29 @@ class PointsPresenter {
 
   #renderPointBoard = () => {
     if (this.#points.length === 0) {
-      render(new PointListEmptyView(), this.#container);
+      this.#renderNoPoints(this.#container);
       return;
     }
 
-    render(new SortView(), this.#container);
-    render(this.#pointsContainerComponent, this.#container);
+    this.#renderSort(this.#container);
+    this.#renderPointListContainer(this.#container);
 
+    this.#renderPoints();
+  };
+
+  #renderNoPoints = (container) => {
+    render(new PointListEmptyView(), container);
+  };
+
+  #renderSort = (container) => {
+    render(this.#sortComponent, container);
+  };
+
+  #renderPointListContainer = (container) => {
+    render(this.#pointsContainerComponent, container);
+  };
+
+  #renderPoints = () => {
     this.#points.forEach((point) => {
       this.#renderPoint(point);
     });
