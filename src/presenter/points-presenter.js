@@ -15,7 +15,7 @@ class PointsPresenter {
 
   #pointPresenters = new Map();
 
-  #sortComponent = new SortView();
+  #sortComponent = null;
   #pointsContainerComponent = new PointsContainerView();
 
   #points = [];
@@ -49,6 +49,10 @@ class PointsPresenter {
   };
 
   #renderSort = (container) => {
+    this.#sortComponent = new SortView();
+
+    this.#sortComponent.setSortTypeChangeHandler(this.#sortTypeChangeHandler);
+
     render(this.#sortComponent, container);
   };
 
@@ -93,6 +97,12 @@ class PointsPresenter {
 
   #modeChangeHandler = () => {
     this.#pointPresenters.forEach((presenter) => presenter.resetView());
+  };
+
+  #sortTypeChangeHandler = (sortType) => {
+    // - Сортируем точки маршрута
+    // - Очищаем список
+    // - Рендерим список заново
   };
 }
 

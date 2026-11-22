@@ -72,6 +72,16 @@ class SortView extends AbstractView {
   get template() {
     return createSortViewTemplate();
   }
+
+  setSortTypeChangeHandler = (callback) => {
+    this._callback.sortTypeChange = callback;
+
+    this.element.addEventListener('change', this.#sortTypeChangeHandler);
+  };
+
+  #sortTypeChangeHandler = (evt) => {
+    this._callback.sortTypeChange(evt.target.dataset.sortType);
+  };
 }
 
 export default SortView;
