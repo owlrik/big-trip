@@ -16,4 +16,16 @@ const PointMode = {
   EDITING: 'EDITING'
 };
 
-export { POINTS_COUNT, MONTH_NAMES, FilterType, PointMode };
+const SortMode = {
+  DEFAULT: 'day',
+  TIME: 'time',
+  PRICE: 'price'
+};
+
+export {
+  POINTS_COUNT,
+  MONTH_NAMES,
+  FilterType,
+  PointMode,
+  SortMode
+};
