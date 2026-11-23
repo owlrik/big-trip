@@ -6,7 +6,10 @@ import SortView from '../view/sort-view.js';
 import PointsContainerView from '../view/points-container-view.js';
 import PointListEmptyView from '../view/point-list-empty-view.js';
 
+import { SortType } from '../const.js';
+
 import { updateItem } from '../utils/common.js';
+import { sortPointsByDate, sortPointsByTime, sortPointsByPrice } from '../utils/point.js';
 
 class PointsPresenter {
   #container = null;
@@ -19,6 +22,7 @@ class PointsPresenter {
   #pointsContainerComponent = new PointsContainerView();
 
   #points = [];
+  #currentSortType = SortType.DEFAULT;
 
   constructor({ pointsContainer, pointsModel, offersModel }) {
     this.#container = pointsContainer;
@@ -86,6 +90,21 @@ class PointsPresenter {
     this.#pointPresenters.clear();
   };
 
+  #sortPoints = (sortType) => {
+    switch (sortType) {
+      case SortType.TIME:
+        this.#points.sort(sortPointsByTime);
+        break;
+      case SortType.PRICE:
+        this.#points.sort(sortPointsByPrice);
+        break;
+      default:
+        this.#points.sort(sortPointsByDate);
+    }
+
+    this.#currentSortType = sortType;
+  };
+
   #pointChangeHandler = (updatedPoint) => {
     this.#points = updateItem(this.#points, updatedPoint);
 
@@ -100,7 +119,12 @@ class PointsPresenter {
   };
 
   #sortTypeChangeHandler = (sortType) => {
-    // - Сортируем точки маршрута
+    if (this.#currentSortType === sortType) {
+      return;
+    }
+
+    this.#sortPoints(sortType);
+
     // - Очищаем список
     // - Рендерим список заново
   };

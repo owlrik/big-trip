@@ -1,6 +1,6 @@
 import AbstractView from '../framework/view/abstract-view.js';
 
-import { SortMode } from '../const.js';
+import { SortType } from '../const.js';
 
 const createSortViewTemplate = () =>
   `
@@ -12,7 +12,7 @@ const createSortViewTemplate = () =>
           type="radio"
           name="trip-sort"
           value="sort-day"
-          data-sort-type="${SortMode.DEFAULT}"
+          data-sort-type="${SortType.DEFAULT}"
           checked
         >
         <label class="trip-sort__btn" for="sort-day">Day</label>
@@ -37,7 +37,7 @@ const createSortViewTemplate = () =>
           type="radio"
           name="trip-sort"
           value="sort-time"
-          data-sort-type="${SortMode.TIME}"
+          data-sort-type="${SortType.TIME}"
         >
         <label class="trip-sort__btn" for="sort-time">Time</label>
       </div>
@@ -49,7 +49,7 @@ const createSortViewTemplate = () =>
           type="radio"
           name="trip-sort"
           value="sort-price"
-          data-sort-type="${SortMode.PRICE}"
+          data-sort-type="${SortType.PRICE}"
         >
         <label class="trip-sort__btn" for="sort-price">Price</label>
       </div>

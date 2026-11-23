@@ -62,6 +62,17 @@ const isCurrentPoint = ({ dateFrom, dateTo }) => {
   return Date.parse(dateFrom) <= currentDate && Date.parse(dateTo) >= currentDate;
 };
 
+const sortPointsByDate = (pointA, pointB) => Date.parse(pointA.dateFrom) - Date.parse(pointB.dateFrom);
+
+const sortPointsByTime = (pointA, pointB) => {
+  const pointATimeDiff = Date.parse(pointA.dateTo) - Date.parse(pointA.dateFrom);
+  const pointBTimeDiff = Date.parse(pointB.dateTo) - Date.parse(pointB.dateFrom);
+
+  return pointBTimeDiff - pointATimeDiff;
+};
+
+const sortPointsByPrice = (pointA, pointB) => pointB.basePrice - pointA.basePrice;
+
 export {
   formatStringToDate,
   formatStringToTime,
@@ -69,5 +80,8 @@ export {
   getDatesDiff,
   isPastPoint,
   isFuturePoint,
-  isCurrentPoint
+  isCurrentPoint,
+  sortPointsByDate,
+  sortPointsByTime,
+  sortPointsByPrice
 };

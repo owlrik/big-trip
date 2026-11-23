@@ -16,7 +16,7 @@ const PointMode = {
   EDITING: 'EDITING'
 };
 
-const SortMode = {
+const SortType = {
   DEFAULT: 'day',
   TIME: 'time',
   PRICE: 'price'
@@ -27,5 +27,5 @@ export {
   MONTH_NAMES,
   FilterType,
   PointMode,
-  SortMode
+  SortType
 };
