@@ -1,4 +1,4 @@
-import { render } from '../framework/render.js';
+import { render, replace, remove } from '../framework/render.js';
 
 import PointPresenter from './point-presenter.js';
 
@@ -53,11 +53,18 @@ class PointsPresenter {
   };
 
   #renderSort = (container) => {
-    this.#sortComponent = new SortView();
+    const prevSortComponent = this.#sortComponent;
+
+    this.#sortComponent = new SortView(this.#currentSortType);
+
+    if (prevSortComponent === null) {
+      render(this.#sortComponent, container);
+    } else {
+      replace(this.#sortComponent, prevSortComponent);
+      remove(prevSortComponent);
+    }
 
     this.#sortComponent.setSortTypeChangeHandler(this.#sortTypeChangeHandler);
-
-    render(this.#sortComponent, container);
   };
 
   #renderPointListContainer = (container) => {
@@ -124,9 +131,9 @@ class PointsPresenter {
     }
 
     this.#sortPoints(sortType);
-
-    // - Очищаем список
-    // - Рендерим список заново
+    this.#clearPointList();
+    this.#renderSort(this.#container);
+    this.#renderPoints(this.#pointsContainerComponent.element);
   };
 }
 
